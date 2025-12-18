@@ -2,20 +2,21 @@
 import { onMounted, ref } from 'vue'
 import FolderPanel from './components/LeftPanel.vue'
 import FilePanel from './components/RightPanel.vue'
-import { fetchFolders, fetchChildren, fetchContents, type FolderUI, type File } from './services/folderApi'
+import { fetchFolders, fetchChildren, fetchContents } from './services/folderApi'
+import type { FolderUI } from './types/ui/folder-ui'
+import type { FileItem } from './types/domain/file'
 
 const folders = ref<FolderUI[]>([])
 const selectedFolder = ref<FolderUI | null>(null)
-const contents = ref<File[]>([])
-const selectedFile = ref<File | null>(null)
+const contents = ref<FileItem[]>([])
+const selectedFile = ref<FileItem | null>(null)
 const error = ref('')
 
 // Load root folders
 onMounted(async () => {
   try {
-    const data = await fetchFolders()
-    console.log("Folders from API:", data)
-    folders.value = data.map(f => ({
+    const res = await fetchFolders()
+    folders.value = res.data.map((f) => ({
       ...f,
       isOpen: false,
       children: [],
@@ -37,8 +38,8 @@ const onFolderClick = async (folder: FolderUI) => {
     if (folder.isOpen && !folder.children?.length) {
       folder.isLoading = true
       try {
-        const childData = await fetchChildren(folder.id)
-        folder.children = childData.map((f: any) => ({
+        const res = await fetchChildren(folder.id)
+        folder.children = res.data.map((f: any) => ({
           ...f,
           isOpen: false,
           children: []
@@ -53,14 +54,15 @@ const onFolderClick = async (folder: FolderUI) => {
   selectedFolder.value = folder
   selectedFile.value = null
   try {
-    contents.value = await fetchContents(folder.id)
+    const res = await fetchContents(folder.id)
+    contents.value = res.data
   } catch {
     contents.value = []
   }
 }
 
 // Handle file click
-const onFileClick = (file: File) => {
+const onFileClick = (file: FileItem) => {
   selectedFile.value = file
 }
 </script>

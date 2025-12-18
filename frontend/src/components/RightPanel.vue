@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import type { File, Folder } from '../services/folderApi';
+import type { FileItem } from '../types/domain/file';
+import type { Folder } from '../types/domain/folder';
+
 
 interface FolderUI extends Folder {
     children?: FolderUI[]
@@ -8,16 +10,16 @@ interface FolderUI extends Folder {
 }
 
 const props = defineProps<{
-    contents: File[]
-    selectedFile: File | null
+    contents: FileItem[]
+    selectedFile: FileItem | null
     selectedFolder: FolderUI | null
 }>()
 
 const emit = defineEmits<{
-    (e: 'file-click', file: File): void
+    (e: 'file-click', file: FileItem): void
 }>()
 
-const handleClick = (file: File) => {
+const handleClick = (file: FileItem) => {
     emit('file-click', file)
 }
 

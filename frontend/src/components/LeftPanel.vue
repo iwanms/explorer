@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import type { FolderUI } from '../services/folderApi';
+import type { FolderUI } from '../types/ui/folder-ui';
+
 
 const props = defineProps<{
     folders: FolderUI[]
