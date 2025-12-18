@@ -16,10 +16,12 @@ Simple file explorer application with folder hierarchy (similar to Windows Explo
 ## Setup
 
 ### Backend
-- bun install
-- cp .env.example .env
-- bun run dev
+```bash
+bun install
+cp .env.example .env
+bun run dev
 
 ### Frontend
-- npm install
-- npm run dev
+```bash
+npm install
+npm run dev
