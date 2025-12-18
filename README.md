@@ -13,13 +13,14 @@ Simple file explorer application with folder hierarchy (similar to Windows Explo
 - Load folder contents
 - Standardized API response format
 
-## Frontend
+## Setup
+
 ```bash
+- Backend
 bun install
 cp .env.example .env
 bun run dev
 
-## Frontend
-```bash
+- Frontend
 npm install
 npm run dev
