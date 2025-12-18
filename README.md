@@ -21,8 +21,7 @@ bun install
 cp .env.example .env
 bun run dev
 
-## Setup
-
+```bash
 ### Frontend
 npm install
 npm run dev
